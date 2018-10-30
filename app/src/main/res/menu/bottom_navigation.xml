@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:id="@+id/AtoZSort"
+        android:enabled="true"
+        android:icon="@drawable/ic_sort_atoz"
+        android:title= ""
+        app:showAsAction="ifRoom"/>
+
+
+    <item
+        android:id="@+id/HighSort"
+        android:enabled="true"
+        android:icon="@drawable/ic_sort_high"
+        android:title= ""
+        app:showAsAction="ifRoom" />
+
+
+    <item
+        android:id="@+id/LowSort"
+        android:enabled="true"
+        android:icon="@drawable/ic_sort_low"
+        android:title= ""
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/charSort"
+        android:enabled="true"
+        android:icon="@drawable/ic_sort_char"
+        android:title= ""
+        app:showAsAction="ifRoom"/>
+</menu>
