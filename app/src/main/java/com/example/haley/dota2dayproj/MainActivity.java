@@ -6,25 +6,26 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static android.net.wifi.WifiConfiguration.PairwiseCipher.strings;
 
 
-public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-    //    private BottomNavigationView bottomNavView;
-        ArrayList<String> appEntry;
-        RecyclerView myRecyclerView;
-        RecyclerView.LayoutManager myLayoutManager;
-        RecyclerView.Adapter myAdapter;
-
+    private BottomNavigationView bottomNavView;
+    private ArrayList<String> appEntry;
+    private RecyclerView myRecyclerView;
+    private RecyclerView.LayoutManager myLayoutManager;
+    private RecyclerView.Adapter myAdapter;
+    private LayoutInflater layoutInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView.setAdapter(myAdapter);
 
 
-
-   /*     bottomNavView = findViewById(R.id.bottom_navigation);
+        bottomNavView = findViewById(R.id.bottom_navigation);
         bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -79,30 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
-        }); */
 
+        });
 
     }
 
-    /*
-
-    private class DownloadData extends AsyncTask<String, Void, String> {
-
-        private static final String TAG = "DownloadData";
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.d(TAG, "onPostExecute: parameter is " + s);
-
-        @Override
-        protected String doInBackground(String... strings) {
-                Log.d(TAG, "onPostExecute: starts with " + strings[0]);
-                return "doInBackground completed.";
-        }
-
-
-        }
-    } */
-
+    @Override
+    public void onClick(View v) {
+        View popUpView = layoutInflater.inflate(R.layout.popup_layout, null);
+    }
 }
