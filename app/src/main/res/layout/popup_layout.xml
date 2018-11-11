@@ -22,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:text="<Character Name>"
             android:textSize="30dp" />
     </LinearLayout>
 
@@ -48,8 +47,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="<Details about data on the graph...>" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
