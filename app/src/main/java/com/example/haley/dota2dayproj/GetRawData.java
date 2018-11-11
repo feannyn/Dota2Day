@@ -109,6 +109,7 @@ class GetRawData extends AsyncTask<String, Void, String>{
             downloadStatus = DownloadStatus.PROCESSING;
 
             //we create a URL via the strings parameter (argument passed in)
+            System.out.println("String[0" + strings[0]);
             URL url = new URL(strings[0]);
             StringBuilder result = new StringBuilder();
             String line;
@@ -144,6 +145,10 @@ class GetRawData extends AsyncTask<String, Void, String>{
             while((line = reader.readLine()) != null){
                 result.append(line).append("\n");
             }
+
+            //System.out.println("RESULT: " + result);
+
+
 
             //alternative format to the above loop
             //for(String line = reader.readLine(); line != null; line = reader.readLine())
