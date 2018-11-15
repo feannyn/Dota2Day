@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         myRecyclerView.setHasFixedSize(true);
         myLayoutManager = new LinearLayoutManager(this);
-        myAdapter = new MainAdapter(appEntry);
+        myAdapter = new HeroAdapter(appEntry);
         myRecyclerView.setLayoutManager(myLayoutManager);
         myRecyclerView.setAdapter(myAdapter);
 
