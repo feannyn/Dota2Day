@@ -111,30 +111,9 @@ class GetDotaJSONData extends AsyncTask<String, Void, List<Hero>> implements Get
     private String createUri(String searchCriteria, String lang, boolean mAll){
         Log.d(TAG, "createUri: starts");
 
-
         System.out.println("Uri.parse(baseURL).toString(): " + Uri.parse(baseURL).toString());
 
         return Uri.parse(baseURL).toString();
-
-       // Uri uri = Uri.parse(baseURL);
-       // Uri.Builder builder = uri.buildUpon();
-
-
-        /*
-         * This is a chain method call in order to do this without chaining
-         *   you would have to call a variable and class build and repeat what is below
-         *   minus the chaining aspect.
-         *
-         *
-         * */
-        /*return Uri.parse(baseURL).buildUpon()
-                .appendQueryParameter("tags", searchCriteria)
-                .appendQueryParameter("tagmode", matchAll ? "ALL":"ANY")
-                .appendQueryParameter("lang", lang)
-                .appendQueryParameter("format", "json")
-                .appendQueryParameter("nojsoncallback", "1")
-                .build().toString();
-        */
     }
 
     //USING ORG.JSON Library
