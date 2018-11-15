@@ -44,7 +44,7 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.full_name = itemView.findViewById(R.id.full_name);
-            this.character_ID = itemView.findViewById(R.id.characterID);
+            this.character_ID = itemView.findViewById(R.id.char_ID);
             this.pick_1 = itemView.findViewById(R.id.pick_1);
         }
 

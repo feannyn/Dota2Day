@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private BottomNavigationView bottomNavView;
-    private ArrayList<String> appEntry;
+    private ArrayList<Hero> hero_app;
     private RecyclerView myRecyclerView;
     private RecyclerView.LayoutManager myLayoutManager;
     private RecyclerView.Adapter myAdapter;
@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         myRecyclerView = findViewById(R.id.my_recycler_view);
 
-        appEntry = new ArrayList<>();
-        appEntry.add("Earthshaker");
+        hero_app = new ArrayList<>();
+      /*  appEntry.add("Earthshaker");
         appEntry.add("Sven");
         appEntry.add("Tiny");
         appEntry.add("Kunkka");
@@ -44,15 +44,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appEntry.add("Clockwerk");
         appEntry.add("Omninight");
         appEntry.add("Io");
-        appEntry.add("Tusk");
+        appEntry.add("Tusk");*/
 
-        for (int i = 0; i < 100; i++) {
-            appEntry.add("Earthshaker # " + i);
-        }
+        /*for (int i = 0; i < 100; i++) {
+            hero_app.add("Earthshaker # " + i);
+        }*/
 
         myRecyclerView.setHasFixedSize(true);
         myLayoutManager = new LinearLayoutManager(this);
-        myAdapter = new HeroAdapter(appEntry);
+        myAdapter = new HeroAdapter(hero_app);
         myRecyclerView.setLayoutManager(myLayoutManager);
         myRecyclerView.setAdapter(myAdapter);
 
