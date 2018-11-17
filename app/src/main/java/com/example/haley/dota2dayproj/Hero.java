@@ -62,7 +62,8 @@ public class Hero {
     @Override
     public String toString() {
         return "\nHero{ " +
-                "name=" + name +
+                "name = " + name +
+                "," + '\n' + "ID = " + id +
                 "," + '\n' + "pick_1=" + pick_1 +
                 "," + '\n' + "pick_2=" + pick_2 +
                 "," + '\n' + "pick_3=" + pick_3 +

@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private BottomNavigationView bottomNavView;
     private ArrayList<Hero> hero_app;
-    private RecyclerView myRecyclerView;
+    private RecyclerView RecyclerView;
     private RecyclerView.LayoutManager myLayoutManager;
-    private RecyclerView.Adapter myAdapter;
+    private HeroAdapter heroAdapter;
     private LayoutInflater layoutInflater;
     private static final String TAG = "MainActivity";
 
@@ -32,30 +32,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myRecyclerView = findViewById(R.id.my_recycler_view);
-
-        hero_app = new ArrayList<>();
-      /*  appEntry.add("Earthshaker");
-        appEntry.add("Sven");
-        appEntry.add("Tiny");
-        appEntry.add("Kunkka");
-        appEntry.add("Beastmaster");
-        appEntry.add("Dragon Knight");
-        appEntry.add("Clockwerk");
-        appEntry.add("Omninight");
-        appEntry.add("Io");
-        appEntry.add("Tusk");*/
-
-        /*for (int i = 0; i < 100; i++) {
-            hero_app.add("Earthshaker # " + i);
-        }*/
-
-        myRecyclerView.setHasFixedSize(true);
+        RecyclerView = findViewById(R.id.my_recycler_view);
         myLayoutManager = new LinearLayoutManager(this);
-        myAdapter = new HeroAdapter(hero_app);
-        myRecyclerView.setLayoutManager(myLayoutManager);
-        myRecyclerView.setAdapter(myAdapter);
-
+        RecyclerView.setLayoutManager(myLayoutManager);
+        hero_app = new ArrayList<Hero>();
+        heroAdapter = new HeroAdapter(this, hero_app);
+        RecyclerView.setAdapter(heroAdapter); //associates our adapter to the Hero adapter (it's the link between the classes)
+        RecyclerView.setHasFixedSize(true);
 
         bottomNavView = findViewById(R.id.bottom_navigation);
         bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -100,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        // Log.d(TAG, "onResume: starts...");
         super.onResume();
         GetDotaJSONData getDotaJSONData = new GetDotaJSONData(this, "https://api.opendota.com/api/heroStats", "en-us", true);
-        getDotaJSONData.execute("android, nougat");
+        getDotaJSONData.execute("");
     }
 
 
@@ -108,12 +91,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //it will not be used once everything is deployed but is a mechanism created
     //to assist in the development process.
     public void onDataAvailable(List<Hero> data, DownloadStatus status){
+        Log.d(TAG, "onDataAvailable: starts...");
+
         if(status == DownloadStatus.OK){
-            Log.d(TAG, "onDownloadComplete: Data is " + data);
+            heroAdapter.loadNewData(data);
         } else{
             //download or processing failed
             Log.e(TAG, "onDownloadComplete failed with status " + status);
         }
+
+        Log.d(TAG, "onDataAvailable: ends...");
     }
 
 }
