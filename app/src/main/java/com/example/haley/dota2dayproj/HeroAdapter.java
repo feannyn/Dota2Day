@@ -113,6 +113,12 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
     void loadNewData(List<Hero> newHeroes){
         heroList = newHeroes;
         notifyDataSetChanged();
+
+        /*_________HARRISON TEST CODE  (and some important stuff)_______*/
+        Hero.GenerateDifference(heroList);  //THIS LINE IS IMPORTANT, IT POPULATES OUR ARRAY DATA
+
+        //System.out.println("SIZE OF hero_app: " + heroList.size());
+        /*______________________________________________________________*/
     }
 
     /*_______________INNER STATIC VIEW HOLDER CLASS______________*/

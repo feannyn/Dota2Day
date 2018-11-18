@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -39,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         heroAdapter = new HeroAdapter(this, hero_app);
         RecyclerView.setAdapter(heroAdapter); //associates our adapter to the Hero adapter (it's the link between the classes)
         RecyclerView.setHasFixedSize(true);
-
         bottomNavView = findViewById(R.id.bottom_navigation);
+
         bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -103,4 +104,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "onDataAvailable: ends...");
     }
 
+}
+
+//this class is used to sort our list of heroes alphabetically.
+//it compares the names of two heroes and returns a value.
+//this will be passed into the sort() function in order to
+    //sort a list of heroes alphabetically.
+class AlphabeticComparator implements Comparator<Hero>{
+
+    @Override
+    public int compare(Hero A, Hero B){
+        String nameA = A.getName();
+        String nameB = B.getName();
+
+            //built in string comparison function
+        return nameA.compareToIgnoreCase(nameB);
+    }
+}
+
+class PopularityComparator implements Comparator<Hero>{
+
+    @Override
+    public int compare(Hero A, Hero B){
+        return 0;
+    }
 }
