@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -37,8 +38,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         myLayoutManager = new LinearLayoutManager(this);
         RecyclerView.setLayoutManager(myLayoutManager);
         hero_app = new ArrayList<Hero>();
-        heroAdapter = new HeroAdapter(this, hero_app);
+
+         /*__________________New HERO ADAPTER IMPLEMENTATION FOR POPUP________________*/
+        heroAdapter = new HeroAdapter(hero_app, new HeroAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Hero hero) {
+                Toast.makeText(MainActivity.this, "hero: " + hero.getName(), Toast.LENGTH_LONG).show();
+            }
+        });
+        /*___________________________________________________________*/
+
         RecyclerView.setAdapter(heroAdapter); //associates our adapter to the Hero adapter (it's the link between the classes)
+
         RecyclerView.setHasFixedSize(true);
         bottomNavView = findViewById(R.id.bottom_navigation);
 
@@ -47,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.AtoZSort:
+                        Collections.sort(hero_app, new AlphabeticComparator());
                         Toast.makeText(MainActivity.this, "Sort A-Z Clicked", Toast.LENGTH_SHORT).show();
                         break;
 
@@ -102,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         Log.d(TAG, "onDataAvailable: ends...");
+
     }
 
 }
@@ -116,16 +129,17 @@ class AlphabeticComparator implements Comparator<Hero>{
     public int compare(Hero A, Hero B){
         String nameA = A.getName();
         String nameB = B.getName();
-
             //built in string comparison function
         return nameA.compareToIgnoreCase(nameB);
     }
 }
 
-class PopularityComparator implements Comparator<Hero>{
+class DifferenceComparator implements Comparator<Hero>{
 
     @Override
     public int compare(Hero A, Hero B){
+        if (A.getPick_difference() > B.getPick_difference()) return 1;
+        else if (A.getPick_difference() < B.getPick_difference()) return -1;
         return 0;
     }
 }

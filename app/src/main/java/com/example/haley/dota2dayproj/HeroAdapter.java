@@ -1,12 +1,12 @@
 package com.example.haley.dota2dayproj;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,10 +16,19 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
     private static final String TAG = "HeroAdapter";
     private List<Hero> heroList;
-    private Context context;
+    private final OnItemClickListener onItemClickListener ;
 
-    public HeroAdapter(Context context, ArrayList<Hero> heroList) {
-        this.context = context;
+    /*created an interface which will contain the function declaration "onItemClick"
+        Interface for the cardView popup
+
+    */
+    public interface OnItemClickListener{
+        void onItemClick(Hero hero);
+    }
+
+
+    public HeroAdapter(ArrayList<Hero> heroList, OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
         this.heroList = heroList;
     }
 
@@ -80,9 +89,8 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull HeroAdapter.ViewHolder viewHolder, int i) {
         Hero heroItem = heroList.get(i);
         Log.d(TAG, "onBindViewHolder: " + heroItem.getName() + ", " + heroItem.getID() + ", " + heroItem.getPick_1() + " at position ----> " + i);
-        //Picasso.with(context).load(heroItem.getPhoto).error(R.drawable.placeholder).placeholder(R.drawable.placeholder).into(holder.thumbnail);
 
-        viewHolder.bindData(heroItem);
+        viewHolder.bindData(heroItem, onItemClickListener);
     }
 
 
@@ -116,9 +124,6 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
         /*_________HARRISON TEST CODE  (and some important stuff)_______*/
         Hero.GenerateDifference(heroList);  //THIS LINE IS IMPORTANT, IT POPULATES OUR ARRAY DATA
-
-        //System.out.println("SIZE OF hero_app: " + heroList.size());
-        /*______________________________________________________________*/
     }
 
     /*_______________INNER STATIC VIEW HOLDER CLASS______________*/
@@ -134,15 +139,25 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
             this.pick_1 = itemView.findViewById(R.id.pick_1);
         }
 
-        public void bindData(final Hero hero) {
+        public void bindData(final Hero hero, final OnItemClickListener onItemClickListener) {
+
+            //verifying that the data is being retrieved successfully
             Log.d(TAG, "bindData: hero ID is: " + hero.getID());
             Log.d(TAG, "bindData: hero 1_pick is: " + hero.getPick_1());
 
-
+            //pushing data to display on the specified widgets
             full_name.setText(hero.getName());
             character_ID.setText(Integer.toString(hero.getID()));
             pick_1.setText(Integer.toString(hero.getPick_1()));
-        }
 
+            //setting onclick listener on the cardview to create popup with the data
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(hero);
+                }
+            });
+        }
     }
+
 }
