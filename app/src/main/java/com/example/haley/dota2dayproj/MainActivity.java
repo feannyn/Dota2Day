@@ -18,7 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, GetDotaJSONData.OnDataAvailable{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, GetDotaJSONData.OnDataAvailable {
 
 
     private BottomNavigationView bottomNavView;
@@ -39,14 +39,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView.setLayoutManager(myLayoutManager);
         hero_app = new ArrayList<Hero>();
 
-         /*__________________New HERO ADAPTER IMPLEMENTATION FOR POPUP________________*/
-        heroAdapter = new HeroAdapter(hero_app, new HeroAdapter.OnItemClickListener() {
+        /*__________________New HERO ADAPTER IMPLEMENTATION FOR POPUP________________*/
+    /*    heroAdapter = new HeroAdapter(hero_app, new HeroAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Hero hero) {
                 Toast.makeText(MainActivity.this, "hero: " + hero.getName(), Toast.LENGTH_LONG).show();
+
+
+
+
             }
-        });
+        });*/
         /*___________________________________________________________*/
+
+
+
+
+
+
+        heroAdapter = new HeroAdapter(hero_app, this);
 
         RecyclerView.setAdapter(heroAdapter); //associates our adapter to the Hero adapter (it's the link between the classes)
 
@@ -94,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+    /*________MIGHT NEED TO DELETE THIS IT IS DUPLICATIVE*/
     @Override
     public void onClick(View v) {
         View popUpView = layoutInflater.inflate(R.layout.popup_layout, null);
@@ -106,8 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * to resume what we were initially doing.
      * */
     @Override
-    protected void onResume(){
-       // Log.d(TAG, "onResume: starts...");
+    protected void onResume() {
+        // Log.d(TAG, "onResume: starts...");
         super.onResume();
         GetDotaJSONData getDotaJSONData = new GetDotaJSONData(this, "https://api.opendota.com/api/heroStats", "en-us", true);
         getDotaJSONData.execute("");
@@ -117,12 +130,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //This method is created to verify that everything is working as expected
     //it will not be used once everything is deployed but is a mechanism created
     //to assist in the development process.
-    public void onDataAvailable(List<Hero> data, DownloadStatus status){
+    public void onDataAvailable(List<Hero> data, DownloadStatus status) {
         Log.d(TAG, "onDataAvailable: starts...");
 
-        if(status == DownloadStatus.OK){
+        if (status == DownloadStatus.OK) {
             heroAdapter.loadNewData(data);
-        } else{
+        } else {
             //download or processing failed
             Log.e(TAG, "onDownloadComplete failed with status " + status);
         }
@@ -136,22 +149,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //this class is used to sort our list of heroes alphabetically.
 //it compares the names of two heroes and returns a value.
 //this will be passed into the sort() function in order to
-    //sort a list of heroes alphabetically.
-class AlphabeticComparator implements Comparator<Hero>{
+//sort a list of heroes alphabetically.
+class AlphabeticComparator implements Comparator<Hero> {
 
     @Override
-    public int compare(Hero A, Hero B){
+    public int compare(Hero A, Hero B) {
         String nameA = A.getName();
         String nameB = B.getName();
-            //built in string comparison function
+        //built in string comparison function
         return nameA.compareToIgnoreCase(nameB);
     }
 }
 
-class DifferenceComparator implements Comparator<Hero>{
+class DifferenceComparator implements Comparator<Hero> {
 
     @Override
-    public int compare(Hero A, Hero B){
+    public int compare(Hero A, Hero B) {
         if (A.getPick_difference() > B.getPick_difference()) return 1;
         else if (A.getPick_difference() < B.getPick_difference()) return -1;
         return 0;

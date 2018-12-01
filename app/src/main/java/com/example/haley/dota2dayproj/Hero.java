@@ -1,9 +1,41 @@
 package com.example.haley.dota2dayproj;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hero {
+public class Hero implements Parcelable{
+
+    /*
+    * converted custom class into parcelable to pass around to and from fragments
+    * gives the ability to put into bundles
+    *
+    * bundle is a global hashmaps with our inputs (whatever it maybe in this case it's a parcel)
+    *
+    *
+    * */
+
+
+
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+
+        @Override
+        public Object createFromParcel(Parcel source) {
+            return new Hero(source);
+        }
+
+        @Override
+        public Object[] newArray(int size) {
+            return new Object[size];
+        }
+    };
+
+
+
+
     private int id;
     private String name;
     private int pick_1;
@@ -29,6 +61,21 @@ public class Hero {
         this.pick_all = pick_1 + pick_2 + pick_3 + pick_4 + pick_5 + pick_6 + pick_7;
         this.pick_difference = 0;
     }
+
+    public Hero(Parcel in){
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.pick_1 = in.readInt();
+        this.pick_2 = in.readInt();
+        this.pick_3 = in.readInt();
+        this.pick_4 = in.readInt();
+        this.pick_5 = in.readInt();
+        this.pick_6 = in.readInt();
+        this.pick_7 = in.readInt();
+        this.pick_all = pick_1 + pick_2 + pick_3 + pick_4 + pick_5 + pick_6 + pick_7;
+        this.pick_difference = 0;
+    }
+
 
 
     //Populates the pick_difference variables of each hero
@@ -125,5 +172,24 @@ public class Hero {
                 "," + '\n' + "pick_all=" + pick_all +
                 "," + '\n' + "pick_difference=" + pick_difference +
                 " }" + '\n';
+    }
+
+    @Override
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeInt(pick_1);
+        dest.writeInt(pick_2);
+        dest.writeInt(pick_3);
+        dest.writeInt(pick_4);
+        dest.writeInt(pick_5);
+        dest.writeInt(pick_6);
+        dest.writeInt(pick_7);
+
     }
 }

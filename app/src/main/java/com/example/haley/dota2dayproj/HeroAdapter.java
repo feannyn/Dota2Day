@@ -1,35 +1,50 @@
 package com.example.haley.dota2dayproj;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.view.WindowManager.LayoutParams;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
+
+    /*TEST FOR POP UP CODE*/
+    public static int cardID;
+
+    private Context context;
+    /*____________________*/
+
     private static final String TAG = "HeroAdapter";
     private List<Hero> heroList;
-    private final OnItemClickListener onItemClickListener ;
+    //private final OnItemClickListener onItemClickListener ;
 
     /*created an interface which will contain the function declaration "onItemClick"
         Interface for the cardView popup
-
     */
-    public interface OnItemClickListener{
+   /* public interface OnItemClickListener{
         void onItemClick(Hero hero);
-    }
+    }*/
 
 
-    public HeroAdapter(ArrayList<Hero> heroList, OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public HeroAdapter(ArrayList<Hero> heroList, Context context) {
+     //   this.onItemClickListener = onItemClickListener;
         this.heroList = heroList;
+        this.context = context;
     }
 
 
@@ -46,6 +61,11 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
     @NonNull
     @Override
     public HeroAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
+        /*TEST FOR POP UP CODE*/
+        cardID++;
+        /*____________________*/
+
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row, viewGroup, false);
         return new ViewHolder(view);
     }
@@ -90,7 +110,7 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
         Hero heroItem = heroList.get(i);
         Log.d(TAG, "onBindViewHolder: " + heroItem.getName() + ", " + heroItem.getID() + ", " + heroItem.getPick_1() + " at position ----> " + i);
 
-        viewHolder.bindData(heroItem, onItemClickListener);
+        viewHolder.bindData(heroItem);
     }
 
 
@@ -127,19 +147,30 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
     }
 
     /*_______________INNER STATIC VIEW HOLDER CLASS______________*/
-    static class ViewHolder extends RecyclerView.ViewHolder{
-      public TextView full_name;
-      public final TextView character_ID;
-      public final TextView pick_1;
+    class ViewHolder extends RecyclerView.ViewHolder{
+      protected TextView full_name;
+      protected final TextView character_ID;
+      protected final TextView pick_1;
+      protected CardView cardView;
+      private LayoutInflater popUpInflater;
+      private PopupWindow popupWindow;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.full_name = itemView.findViewById(R.id.full_name);
             this.character_ID = itemView.findViewById(R.id.char_ID);
             this.pick_1 = itemView.findViewById(R.id.pick_1);
+            this.cardView = itemView.findViewById(R.id.row);
+            this.popUpInflater = LayoutInflater.from(itemView.getContext());
+
+            cardView.setId(cardID);
+
+            Log.d("cardId", String.valueOf(cardID));
         }
 
-        public void bindData(final Hero hero, final OnItemClickListener onItemClickListener) {
+        public void bindData(final Hero hero) {
 
             //verifying that the data is being retrieved successfully
             Log.d(TAG, "bindData: hero ID is: " + hero.getID());
@@ -154,10 +185,81 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClick(hero);
+                    //onItemClickListener.onItemClick(hero);
+
+                    displayPopup(hero);
+
+
+                 /*   View popupView = popUpInflater.inflate(R.layout.popup_layout,null);
+
+                    popupWindow = new PopupWindow();
+
+
+                    popupWindow.setContentView(popupView);
+                    popupWindow.showAsDropDown(v);
+                    popupWindow.setHeight(LayoutParams.WRAP_CONTENT);
+                    popupWindow.setWidth(LayoutParams.WRAP_CONTENT);
+                    popupWindow.setOutsideTouchable(true);
+                    popupWindow.setFocusable(false);
+*/
+
+                    Toast.makeText(itemView.getContext(), "hero: " + hero.getName(), Toast.LENGTH_LONG).show();
+
+
                 }
             });
         }
+
+
+
+    }
+
+
+
+    public static class PopupDialogFragment extends DialogFragment {
+
+        //wrapper will create a new fragment for you rather then call
+        private static final String ARG_HERO = "hero";
+
+        //WRapper method
+        public static PopupDialogFragment newInstance(Hero hero) {
+
+            Bundle args = new Bundle();
+
+            PopupDialogFragment fragment = new PopupDialogFragment();
+            args.putParcelable(ARG_HERO, hero);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        //inflates the layout file and returns a view
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.popup_layout, container,
+                    false);
+
+
+
+            return rootView;
+        }
+
+        //assigns the argument values
+        @Override
+        public void onViewCreated(@NonNull View rootView, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(rootView, savedInstanceState);
+            Hero hero = getArguments().getParcelable(ARG_HERO);
+
+            TextView fullName = rootView.findViewById(R.id.full_name);
+            fullName.setText(hero.getName());
+
+        }
+    }
+
+
+   public void displayPopup(Hero hero){
+       PopupDialogFragment dialogFragment = PopupDialogFragment.newInstance(hero);
+       dialogFragment.show(((FragmentActivity)context).getSupportFragmentManager(), "OpenPopup");
     }
 
 }
