@@ -58,11 +58,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.AtoZSort:
-                        Collections.sort(hero_app, new AlphabeticComparator());
+                        //Collections.sort(hero_app, new AlphabeticComparator());
+                        /*Collections.sort(hero_app, new Comparator<Hero>() {
+                            @Override
+                            public int compare(Hero o1, Hero o2) {
+                                return o1.getName().compareTo(o2.getName());
+                        }
+                        });
+                        heroAdapter = new HeroAdapter(hero_app, HeroAdapter.OnItemClickListener);
+                        RecyclerView.setAdapter(heroAdapter); */
                         Toast.makeText(MainActivity.this, "Sort A-Z Clicked", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.HighSort:
+                        Collections.sort(hero_app, new Comparator<Hero>() {
+                            @Override
+                            public int compare(Hero o1, Hero o2) {
+                                return o1.getPick_all().;
+                            }
+                        })
                         Toast.makeText(MainActivity.this, "Sort High to Low Clicked", Toast.LENGTH_SHORT).show();
                         break;
 
@@ -143,3 +157,4 @@ class DifferenceComparator implements Comparator<Hero>{
         return 0;
     }
 }
+
