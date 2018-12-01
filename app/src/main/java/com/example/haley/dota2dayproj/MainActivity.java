@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Collections.sort(hero_app, new Comparator<Hero>() {
                             @Override
                             public int compare(Hero o1, Hero o2) {
-                                return o1.getPick_all().;
+                                return o1.getPick_all();
                             }
-                        })
+                        });
                         Toast.makeText(MainActivity.this, "Sort High to Low Clicked", Toast.LENGTH_SHORT).show();
                         break;
 

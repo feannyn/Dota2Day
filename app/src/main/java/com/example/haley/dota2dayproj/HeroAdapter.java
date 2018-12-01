@@ -15,7 +15,12 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.WindowManager.LayoutParams;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -249,6 +254,37 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
         public void onViewCreated(@NonNull View rootView, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(rootView, savedInstanceState);
             Hero hero = getArguments().getParcelable(ARG_HERO);
+            BarChart barChart = rootView.findViewById(R.id.barGraph);
+
+
+            //setting the x Axis labels
+            ArrayList<String> labels = new ArrayList<String>();
+                labels.add("Herald");   //pick 1
+                labels.add("Guardian"); //pick 2
+                labels.add("Crusader"); //pick 3
+                labels.add("Archon");   //pick 4
+                labels.add("Legend");   //pick 5
+                labels.add("Ancient");  //pick 6
+                labels.add("Divine");   //pick 7
+
+            //creating a BarDataSet instance in order to display the data in a Bar Chart
+            ArrayList<BarEntry> entries = new ArrayList<>();
+                entries.add(new BarEntry(hero.getPick_1(), 0));
+                entries.add(new BarEntry(hero.getPick_2(), 1));
+                entries.add(new BarEntry(hero.getPick_3(), 2));
+                entries.add(new BarEntry(hero.getPick_4(), 3));
+                entries.add(new BarEntry(hero.getPick_5(), 4));
+                entries.add(new BarEntry(hero.getPick_6(), 5));
+                entries.add(new BarEntry(hero.getPick_7(), 6));
+
+
+
+            //populating the data into the chart
+            BarDataSet bardataset = new BarDataSet(entries, "Cells");
+            bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+            BarData data = new BarData(labels, bardataset);
+            barChart.setData(data);
+
 
             TextView fullName = rootView.findViewById(R.id.full_name);
             fullName.setText(hero.getName());
