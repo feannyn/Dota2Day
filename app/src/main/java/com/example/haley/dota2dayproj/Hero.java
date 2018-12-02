@@ -47,8 +47,10 @@ public class Hero implements Parcelable{
     private int pick_7;
     private int pick_all;
     private double pick_difference;
+    private String heroIcon;
+    private String heroImg;
 
-    public Hero(int id, String name, int pick_1, int pick_2, int pick_3, int pick_4, int pick_5, int pick_6, int pick_7) {
+    public Hero(int id, String name, int pick_1, int pick_2, int pick_3, int pick_4, int pick_5, int pick_6, int pick_7, String heroIcon, String heroImg) {
         this.id = id;
         this.name = name;
         this.pick_1 = pick_1;
@@ -60,6 +62,8 @@ public class Hero implements Parcelable{
         this.pick_7 = pick_7;
         this.pick_all = pick_1 + pick_2 + pick_3 + pick_4 + pick_5 + pick_6 + pick_7;
         this.pick_difference = 0;
+        this.heroIcon = heroIcon;
+        this.heroImg = heroImg;
     }
 
     public Hero(Parcel in){
@@ -74,6 +78,7 @@ public class Hero implements Parcelable{
         this.pick_7 = in.readInt();
         this.pick_all = pick_1 + pick_2 + pick_3 + pick_4 + pick_5 + pick_6 + pick_7;
         this.pick_difference = 0;
+        this.heroImg = in.readString();
     }
 
 
@@ -171,6 +176,8 @@ public class Hero implements Parcelable{
                 "," + '\n' + "pick_7=" + pick_7 +
                 "," + '\n' + "pick_all=" + pick_all +
                 "," + '\n' + "pick_difference=" + pick_difference +
+                "," + '\n' + "Hero Icon= " + heroIcon +
+                "," + '\n' + "Hero Image= " + heroImg +
                 " }" + '\n';
     }
 
@@ -190,6 +197,7 @@ public class Hero implements Parcelable{
         dest.writeInt(pick_5);
         dest.writeInt(pick_6);
         dest.writeInt(pick_7);
+        dest.writeString(heroImg);
 
     }
 }
