@@ -140,6 +140,26 @@ class AlphabeticComparator implements Comparator<Hero> {
     }
 }
 
+class All_High_Comparator implements Comparator<Hero> {
+
+    @Override
+    public int compare(Hero A, Hero B) {
+        if (A.getPick_all() > B.getPick_all()) return 1;
+        else if (A.getPick_all() < B.getPick_all()) return -1;
+        return 0;
+    }
+}
+
+class All_Low_Comparator implements Comparator<Hero> {
+
+    @Override
+    public int compare(Hero A, Hero B) {
+        if (A.getPick_all() > B.getPick_all()) return -1;
+        else if (A.getPick_all() < B.getPick_all()) return 1;
+        return 0;
+    }
+}
+
 class DifferenceComparator implements Comparator<Hero> {
 
     @Override
