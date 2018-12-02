@@ -17,9 +17,6 @@ public class Hero implements Parcelable{
     *
     * */
 
-
-
-
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
 
         @Override
@@ -52,7 +49,6 @@ public class Hero implements Parcelable{
     private String heroIcon;
     private String heroImg;
 
-<<<<<<< HEAD
     //p1p is the pick percentage rate for bracket 1
     //p2p is the pick percentage rate for bracket 2
     //etc
@@ -65,10 +61,7 @@ public class Hero implements Parcelable{
     private double p7p;
 
 
-    public Hero(int id, String name, int pick_1, int pick_2, int pick_3, int pick_4, int pick_5, int pick_6, int pick_7) {
-=======
     public Hero(int id, String name, int pick_1, int pick_2, int pick_3, int pick_4, int pick_5, int pick_6, int pick_7, String heroIcon, String heroImg) {
->>>>>>> 8893ef5bc4de38be44e2594679ceebcac897e274
         this.id = id;
         this.name = name;
         this.pick_1 = pick_1;
@@ -80,7 +73,6 @@ public class Hero implements Parcelable{
         this.pick_7 = pick_7;
         this.pick_all = pick_1 + pick_2 + pick_3 + pick_4 + pick_5 + pick_6 + pick_7;
         this.pick_difference = 0;
-<<<<<<< HEAD
         this.p1p = 0;
         this.p2p = 0;
         this.p3p = 0;
@@ -88,10 +80,8 @@ public class Hero implements Parcelable{
         this.p5p = 0;
         this.p6p = 0;
         this.p7p = 0;
-=======
         this.heroIcon = heroIcon;
         this.heroImg = heroImg;
->>>>>>> 8893ef5bc4de38be44e2594679ceebcac897e274
     }
 
     public Hero(Parcel in){
@@ -104,7 +94,6 @@ public class Hero implements Parcelable{
         this.pick_5 = in.readInt();
         this.pick_6 = in.readInt();
         this.pick_7 = in.readInt();
-<<<<<<< HEAD
         this.pick_all = in.readInt();
         this.pick_difference = in.readDouble();
         this.p1p = in.readDouble();
@@ -114,13 +103,9 @@ public class Hero implements Parcelable{
         this.p5p = in.readDouble();
         this.p6p = in.readDouble();
         this.p7p = in.readDouble();
-
-
-=======
         this.pick_all = pick_1 + pick_2 + pick_3 + pick_4 + pick_5 + pick_6 + pick_7;
         this.pick_difference = 0;
         this.heroImg = in.readString();
->>>>>>> 8893ef5bc4de38be44e2594679ceebcac897e274
     }
 
 
@@ -177,7 +162,7 @@ public class Hero implements Parcelable{
             h.p6p = h.getPick_6() / games_6_total;
             h.p7p = h.getPick_7() / games_7_total;
 
-            h.pick_difference = -(p1p - p7p) * 100;
+            h.pick_difference = -(h.p1p - h.p7p) * 100;
         }
 
         //System.out.println("games_1_total = " + games_1_total);
@@ -249,18 +234,15 @@ public class Hero implements Parcelable{
                 "," + '\n' + "pick_7=" + pick_7 +
                 "," + '\n' + "pick_all=" + pick_all +
                 "," + '\n' + "pick_difference=" + pick_difference +
-<<<<<<< HEAD
                 "," + '\n' + "p1p=" + p1p + 
                 "," + '\n' + "p2p=" + p2p + 
                 "," + '\n' + "p3p=" + p3p + 
                 "," + '\n' + "p4p=" + p4p + 
                 "," + '\n' + "p5p=" + p5p + 
                 "," + '\n' + "p6p=" + p6p + 
-                "," + '\n' + "p7p=" + p7p + 
-=======
+                "," + '\n' + "p7p=" + p7p +
                 "," + '\n' + "Hero Icon= " + heroIcon +
                 "," + '\n' + "Hero Image= " + heroImg +
->>>>>>> 8893ef5bc4de38be44e2594679ceebcac897e274
                 " }" + '\n';
     }
 
@@ -280,7 +262,6 @@ public class Hero implements Parcelable{
         dest.writeInt(pick_5);
         dest.writeInt(pick_6);
         dest.writeInt(pick_7);
-<<<<<<< HEAD
         dest.writeInt(pick_all);
         dest.writeDouble(pick_difference);
         dest.writeDouble(p1p);
@@ -290,9 +271,6 @@ public class Hero implements Parcelable{
         dest.writeDouble(p5p);
         dest.writeDouble(p6p);
         dest.writeDouble(p7p);
-=======
         dest.writeString(heroImg);
->>>>>>> 8893ef5bc4de38be44e2594679ceebcac897e274
-
     }
 }
