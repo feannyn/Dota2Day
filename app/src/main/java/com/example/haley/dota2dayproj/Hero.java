@@ -116,6 +116,8 @@ public class Hero implements Parcelable{
     //A positive difference means that the pick rate INCREASES from 1 to 7
     //A negative difference means that the pick rate DECREASes from 1 to 7
     public static void GenerateDifference(List<Hero> list){
+
+        System.out.println("running generate difference");
         int pick_1_total = 0;
         int pick_2_total = 0;
         int pick_3_total = 0;
@@ -154,13 +156,13 @@ public class Hero implements Parcelable{
             //etc
 
             //these numbers are generated from (times picked) / (total games)
-            h.p1p = h.getPick_1() / games_1_total;
-            h.p2p = h.getPick_2() / games_2_total;
-            h.p3p = h.getPick_3() / games_3_total;
-            h.p4p = h.getPick_4() / games_4_total;
-            h.p5p = h.getPick_5() / games_5_total;
-            h.p6p = h.getPick_6() / games_6_total;
-            h.p7p = h.getPick_7() / games_7_total;
+            h.p1p = (h.getPick_1() / games_1_total) * 100;
+            h.p2p = (h.getPick_2() / games_2_total) * 100;
+            h.p3p = (h.getPick_3() / games_3_total) * 100;
+            h.p4p = (h.getPick_4() / games_4_total) * 100;
+            h.p5p = (h.getPick_5() / games_5_total) * 100;
+            h.p6p = (h.getPick_6() / games_6_total) * 100;
+            h.p7p = (h.getPick_7() / games_7_total) * 100;
 
             h.pick_difference = -(h.p1p - h.p7p) * 100;
         }

@@ -1,6 +1,9 @@
 package com.example.haley.dota2dayproj;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.icu.text.DisplayContext;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v4.app.DialogFragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.*;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -267,23 +270,33 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
                 labels.add("Ancient");  //pick 6
                 labels.add("Divine");   //pick 7
 
+
             //creating a BarDataSet instance in order to display the data in a Bar Chart
             ArrayList<BarEntry> entries = new ArrayList<>();
-                entries.add(new BarEntry(hero.getPick_1(), 0));
-                entries.add(new BarEntry(hero.getPick_2(), 1));
-                entries.add(new BarEntry(hero.getPick_3(), 2));
-                entries.add(new BarEntry(hero.getPick_4(), 3));
-                entries.add(new BarEntry(hero.getPick_5(), 4));
-                entries.add(new BarEntry(hero.getPick_6(), 5));
-                entries.add(new BarEntry(hero.getPick_7(), 6));
+                entries.add(new BarEntry((int)hero.getp1p(), 0));
+                entries.add(new BarEntry((int)hero.getp2p(), 1));
+                entries.add(new BarEntry((int)hero.getp3p(), 2));
+                entries.add(new BarEntry((int)hero.getp4p(), 3));
+                entries.add(new BarEntry((int)hero.getp5p(), 4));
+                entries.add(new BarEntry((int)hero.getp6p(), 5));
+                entries.add(new BarEntry((int)hero.getp7p(), 6));
 
 
 
             //populating the data into the chart
-            BarDataSet bardataset = new BarDataSet(entries, "Cells");
+            barChart.setDescription("");
+            barChart.setDescriptionColor(Color.WHITE);
+            BarDataSet bardataset = new BarDataSet(entries, "Pick Rate Percentage");
             bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+
             BarData data = new BarData(labels, bardataset);
             barChart.setData(data);
+            barChart.getXAxis().setTextColor(Color.WHITE);
+            barChart.getXAxis().setLabelsToSkip(0);
+            bardataset.setBarSpacePercent(((float) (7) - data.getXValCount()) / (float) (7) * 100f);
+
+
+
 
 
             TextView fullName = rootView.findViewById(R.id.full_name);
@@ -296,6 +309,7 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
    public void displayPopup(Hero hero){
        PopupDialogFragment dialogFragment = PopupDialogFragment.newInstance(hero);
        dialogFragment.show(((FragmentActivity)context).getSupportFragmentManager(), "OpenPopup");
+
     }
 
 }

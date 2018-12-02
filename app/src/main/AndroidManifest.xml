@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Dota 2Day">
+            android:label="Dota2Day">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
