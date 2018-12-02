@@ -39,24 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView.setLayoutManager(myLayoutManager);
         hero_app = new ArrayList<Hero>();
 
-        /*__________________New HERO ADAPTER IMPLEMENTATION FOR POPUP________________*/
-    /*    heroAdapter = new HeroAdapter(hero_app, new HeroAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Hero hero) {
-                Toast.makeText(MainActivity.this, "hero: " + hero.getName(), Toast.LENGTH_LONG).show();
-
-
-
-
-            }
-        });*/
-        /*___________________________________________________________*/
-
-
-
-
-
-
         heroAdapter = new HeroAdapter(hero_app, this);
 
         RecyclerView.setAdapter(heroAdapter); //associates our adapter to the Hero adapter (it's the link between the classes)
@@ -69,32 +51,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.AtoZSort:
-                        //Collections.sort(hero_app, new AlphabeticComparator());
-                        /*Collections.sort(hero_app, new Comparator<Hero>() {
-                            @Override
-                            public int compare(Hero o1, Hero o2) {
-                                return o1.getName().compareTo(o2.getName());
-                        }
-                        });
-                        heroAdapter = new HeroAdapter(hero_app, HeroAdapter.OnItemClickListener);
-                        RecyclerView.setAdapter(heroAdapter); */
+
+                        Log.d(TAG, "onNavigationItemSelected: HEROADAPTERGETLISTSIZE: " + heroAdapter.getHeroList().size());
+
+                        heroAdapter.getHeroList();
+                        Collections.sort(heroAdapter.getHeroList(), new AlphabeticComparator());
+
+                        RecyclerView.setAdapter(heroAdapter);
                         Toast.makeText(MainActivity.this, "Sort A-Z Clicked", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.HighSort:
-                        Collections.sort(hero_app, new Comparator<Hero>() {
-                            @Override
-                            public int compare(Hero o1, Hero o2) {
-                                return o1.getPick_all();
-                            }
-                        });
+
                         Toast.makeText(MainActivity.this, "Sort High to Low Clicked", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.LowSort:
                         Toast.makeText(MainActivity.this, "Sort Low to High Clicked", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.charSort:
+                    case R.id.diffSort:
+                        heroAdapter.getHeroList();
+                        Collections.sort(heroAdapter.getHeroList(), new DifferenceComparator());
+
+                        RecyclerView.setAdapter(heroAdapter);
                         Toast.makeText(MainActivity.this, "Sort By Character Clicked", Toast.LENGTH_SHORT).show();
                         break;
                 }

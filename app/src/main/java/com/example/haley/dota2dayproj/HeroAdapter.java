@@ -134,6 +134,12 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
         return ((heroList != null) &&  (heroList.size() != 0) ? heroList.get(position) : null);
     }
 
+    public List<Hero> getHeroList(){
+        return heroList;
+    }
+
+
+
     /*loadNewData Function
     * when the query changes and new data is downloaded  we need to be able to
     *   provide the adapter with the new list
@@ -159,7 +165,6 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
       protected CardView cardView;
       private LayoutInflater popUpInflater;
       private PopupWindow popupWindow;
-
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -190,36 +195,14 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //onItemClickListener.onItemClick(hero);
 
                     displayPopup(hero);
 
-
-                 /*   View popupView = popUpInflater.inflate(R.layout.popup_layout,null);
-
-                    popupWindow = new PopupWindow();
-
-
-                    popupWindow.setContentView(popupView);
-                    popupWindow.showAsDropDown(v);
-                    popupWindow.setHeight(LayoutParams.WRAP_CONTENT);
-                    popupWindow.setWidth(LayoutParams.WRAP_CONTENT);
-                    popupWindow.setOutsideTouchable(true);
-                    popupWindow.setFocusable(false);
-*/
-
                     Toast.makeText(itemView.getContext(), "hero: " + hero.getName(), Toast.LENGTH_LONG).show();
-
-
                 }
             });
         }
-
-
-
     }
-
-
 
     public static class PopupDialogFragment extends DialogFragment {
 
@@ -243,8 +226,6 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.popup_layout, container,
                     false);
-
-
 
             return rootView;
         }

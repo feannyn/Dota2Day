@@ -27,7 +27,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/charSort"
+        android:id="@+id/diffSort"
         android:enabled="true"
         android:icon="@drawable/ic_sort_char"
         android:title= ""
