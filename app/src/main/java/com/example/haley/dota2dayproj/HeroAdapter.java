@@ -20,6 +20,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.*;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -244,12 +246,13 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
             //setting the x Axis labels
             ArrayList<String> labels = new ArrayList<String>();
                 labels.add("Herald");   //pick 1
-                labels.add("Guardian"); //pick 2
+                labels.add("Guard"); //pick 2
                 labels.add("Crusader"); //pick 3
                 labels.add("Archon");   //pick 4
                 labels.add("Legend");   //pick 5
                 labels.add("Ancient");  //pick 6
                 labels.add("Divine");   //pick 7
+
 
 
             //creating a BarDataSet instance in order to display the data in a Bar Chart
@@ -264,11 +267,21 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
 
 
+
             //populating the data into the chart
             barChart.setDescription("");
-            barChart.setDescriptionColor(Color.WHITE);
+            //barChart.setDescriptionColor(Color.WHITE);
+            barChart.getLegend().setTextColor(Color.WHITE);
             BarDataSet bardataset = new BarDataSet(entries, "Pick Rate Percentage");
             bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+
+            YAxis yAxis = barChart.getAxisLeft();
+            YAxis yAxisright = barChart.getAxisRight();
+            yAxis.setTextColor(Color.WHITE);
+            yAxisright.setTextColor(Color.WHITE);
+            barChart.setDrawValueAboveBar(false);
+            bardataset.setValueTextSize(12F);
+
 
             BarData data = new BarData(labels, bardataset);
             barChart.setData(data);
