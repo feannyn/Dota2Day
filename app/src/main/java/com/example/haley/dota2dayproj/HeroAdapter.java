@@ -225,7 +225,7 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
                 }
             });
-        
+
 
 
             //setting onclick listener on the cardview to create popup with the data
