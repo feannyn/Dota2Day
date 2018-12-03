@@ -62,11 +62,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
 
                     case R.id.HighSort:
+                        heroAdapter.getHeroList();
+                        Collections.sort(heroAdapter.getHeroList(), new All_High_Comparator());
+
+                        RecyclerView.setAdapter(heroAdapter);
 
                         Toast.makeText(MainActivity.this, "Sort High to Low Clicked", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.LowSort:
+                        heroAdapter.getHeroList();
+                        Collections.sort(heroAdapter.getHeroList(), new All_Low_Comparator());
+
+                        RecyclerView.setAdapter(heroAdapter);
+
                         Toast.makeText(MainActivity.this, "Sort Low to High Clicked", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.diffSort:

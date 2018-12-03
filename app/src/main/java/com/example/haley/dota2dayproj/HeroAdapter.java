@@ -1,34 +1,38 @@
 package com.example.haley.dota2dayproj;
 
-import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.icu.text.DisplayContext;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.support.v4.app.DialogFragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.*;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import java.util.ArrayList;
 import java.util.List;
+
+/*LIVE DATA*/
 
 class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
@@ -170,6 +174,7 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
       protected CardView cardView;
       private LayoutInflater popUpInflater;
       private PopupWindow popupWindow;
+      private ImageView iconView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -179,6 +184,7 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
             this.pick_1 = itemView.findViewById(R.id.pick_1);
             this.cardView = itemView.findViewById(R.id.row);
             this.popUpInflater = LayoutInflater.from(itemView.getContext());
+            this.iconView = itemView.findViewById(R.id.character_image);
 
             cardView.setId(cardID);
 
@@ -195,6 +201,32 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
             full_name.setText(hero.getName());
             character_ID.setText(Integer.toString(hero.getID()));
             pick_1.setText(Integer.toString(hero.getPick_1()));
+            //Picasso.get().load(hero.getHeroImgUrl()).into(iconView);
+
+           /* if(hero.getHeroIconBitmap() != null){
+                iconView.setImageBitmap(hero.getHeroIconBitmap());
+            }
+            else{*/
+            Picasso.get().load(hero.getHeroIconUrl()).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    hero.setHeroIconBitmap(bitmap);
+                    iconView.setImageBitmap(bitmap);
+
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
+        
+
 
             //setting onclick listener on the cardview to create popup with the data
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +271,7 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
         @Override
         public void onViewCreated(@NonNull View rootView, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(rootView, savedInstanceState);
-            Hero hero = getArguments().getParcelable(ARG_HERO);
+            final Hero hero = getArguments().getParcelable(ARG_HERO);
             BarChart barChart = rootView.findViewById(R.id.barGraph);
 
 
@@ -295,6 +327,33 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
             TextView fullName = rootView.findViewById(R.id.full_name);
             fullName.setText(hero.getName());
+            final ImageView popUpImage = rootView.findViewById(R.id.popupImg);
+            //Picasso.get().load(hero.getHeroIconUrl()).into(popUpImage);
+
+
+            //stores the image so we do not need to fetch it multiple times (via bitmap)
+  /*          if(hero.getHeroImgBitmap() != null){
+                hero.setHeroImgBitmap(hero.getHeroImgBitmap());
+            }
+            else{*/
+            Picasso.get().load(hero.getHeroImgUrl()).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    hero.setHeroImgBitmap(bitmap); //caches bitmap(image)
+                    popUpImage.setImageBitmap(bitmap); //displays bitmap(image)
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
+
 
         }
     }

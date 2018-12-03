@@ -1,10 +1,15 @@
 package com.example.haley.dota2dayproj;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.List;
+
+
+
+/*RETROFIT FOR JSON PARSING */
+/*ROOM DATABASE*/
 
 public class Hero implements Parcelable{
 
@@ -46,8 +51,10 @@ public class Hero implements Parcelable{
     //pick_difference is the raw percentage increase/decrease between pick rates
         //between brackets 1 and 7
     private double pick_difference;
-    private String heroIcon;
-    private String heroImg;
+    private String heroIconUrl;
+    private String heroImgUrl;
+    private Bitmap heroImgBitmap;
+    private Bitmap heroIconBitmap;
 
     //p1p is the pick percentage rate for bracket 1
     //p2p is the pick percentage rate for bracket 2
@@ -61,7 +68,7 @@ public class Hero implements Parcelable{
     private double p7p;
 
 
-    public Hero(int id, String name, int pick_1, int pick_2, int pick_3, int pick_4, int pick_5, int pick_6, int pick_7, String heroIcon, String heroImg) {
+    public Hero(int id, String name, int pick_1, int pick_2, int pick_3, int pick_4, int pick_5, int pick_6, int pick_7, String heroIconUrl, String heroImgUrl, Bitmap heroImgBitmap, Bitmap heroIconBitmap) {
         this.id = id;
         this.name = name;
         this.pick_1 = pick_1;
@@ -80,8 +87,10 @@ public class Hero implements Parcelable{
         this.p5p = 0;
         this.p6p = 0;
         this.p7p = 0;
-        this.heroIcon = heroIcon;
-        this.heroImg = heroImg;
+        this.heroIconUrl = heroIconUrl;
+        this.heroImgUrl = heroImgUrl;
+        this.heroIconBitmap = heroIconBitmap;
+        this.heroImgBitmap = heroImgBitmap;
     }
 
     public Hero(Parcel in){
@@ -105,7 +114,10 @@ public class Hero implements Parcelable{
         this.p7p = in.readDouble();
         this.pick_all = pick_1 + pick_2 + pick_3 + pick_4 + pick_5 + pick_6 + pick_7;
         this.pick_difference = 0;
-        this.heroImg = in.readString();
+        this.heroImgUrl = in.readString();
+        this.heroIconBitmap = in.readParcelable(null);
+        this.heroImgBitmap = in.readParcelable(null);
+
     }
 
 
@@ -214,6 +226,30 @@ public class Hero implements Parcelable{
 
     public double getPick_difference() {return pick_difference; }
 
+    public String getHeroImgUrl() {
+        return heroImgUrl;
+    }
+
+    public String getHeroIconUrl(){
+        return heroIconUrl;
+    }
+
+    public Bitmap getHeroIconBitmap() {
+        return heroIconBitmap;
+    }
+
+    public Bitmap getHeroImgBitmap() {
+        return heroImgBitmap;
+    }
+
+    public void setHeroImgBitmap(Bitmap heroImgBitmap) {
+        this.heroImgBitmap = heroImgBitmap;
+    }
+
+    public void setHeroIconBitmap(Bitmap heroIconBitmap) {
+        this.heroIconBitmap = heroIconBitmap;
+    }
+
     public double getp1p() {return p1p;}
     public double getp2p() {return p2p;}
     public double getp3p() {return p3p;}
@@ -243,8 +279,8 @@ public class Hero implements Parcelable{
                 "," + '\n' + "p5p=" + p5p + 
                 "," + '\n' + "p6p=" + p6p + 
                 "," + '\n' + "p7p=" + p7p +
-                "," + '\n' + "Hero Icon= " + heroIcon +
-                "," + '\n' + "Hero Image= " + heroImg +
+                "," + '\n' + "Hero Icon= " + heroIconUrl +
+                "," + '\n' + "Hero Image= " + heroImgUrl +
                 " }" + '\n';
     }
 
@@ -273,6 +309,8 @@ public class Hero implements Parcelable{
         dest.writeDouble(p5p);
         dest.writeDouble(p6p);
         dest.writeDouble(p7p);
-        dest.writeString(heroImg);
+        dest.writeString(heroImgUrl);
+        dest.writeParcelable(heroIconBitmap, flags);
+        dest.writeParcelable(heroImgBitmap, flags);
     }
 }
