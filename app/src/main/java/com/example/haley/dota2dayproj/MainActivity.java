@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     case R.id.HighSort:
                         heroAdapter.getHeroList();
-                        Collections.sort(heroAdapter.getHeroList(), new All_High_Comparator());
+                        Collections.sort(heroAdapter.getHeroList(), new All_Low_Comparator());
 
                         RecyclerView.setAdapter(heroAdapter);
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     case R.id.LowSort:
                         heroAdapter.getHeroList();
-                        Collections.sort(heroAdapter.getHeroList(), new All_Low_Comparator());
+                        Collections.sort(heroAdapter.getHeroList(), new All_High_Comparator());
 
                         RecyclerView.setAdapter(heroAdapter);
 

@@ -169,7 +169,7 @@ class GetDotaJSONData extends AsyncTask<String, Void, List<Hero>> implements Get
                     String heroImg = "http://cdn.dota2.com" + jsonHero.getString("img");
 
                     //create a Hero object
-                    Hero HeroObject = new Hero(id, name, pick_1, pick_2, pick_3, pick_4, pick_5, pick_6, pick_7, heroIcon, heroImg, null, null);
+                    Hero HeroObject = new Hero(id, name, pick_1, pick_2, pick_3, pick_4, pick_5, pick_6, pick_7, heroIcon, heroImg, null, null, 0);
 
                     HeroObject.toString();
 

@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_margin="5dp"
+        card_view:cardBackgroundColor="#2E2E32"
         card_view:cardElevation="1dp"
-        card_view:cardMaxElevation="1dp"
-        card_view:cardBackgroundColor="#2E2E32">
+        card_view:cardMaxElevation="1dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,38 +29,86 @@
 
             <TextView
                 android:id="@+id/full_name"
-                android:layout_width="265dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="1dp"
                 android:layout_toEndOf="@+id/character_image"
                 android:text="CharacterName"
                 android:textColor="#F4F2F2"
-                android:textSize="22dp"
+                android:textSize="19dp"
                 android:textStyle="bold" />
 
 
             <TextView
-                android:id="@+id/pick_1"
-                android:layout_width="147dp"
-                android:layout_height="38dp"
-                android:layout_below="@+id/full_name"
-                android:layout_marginStart="5dp"
-                android:layout_toEndOf="@+id/character_image"
-                android:text="CharacterPick"
-                android:textSize="20dp"
-                android:textColor="#F4F6F5"/>
+                android:id="@+id/total"
+                android:layout_width="16dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/totalPick"
+                android:ems="10"
+                android:text="T:"
+                android:textColor="#bb002f"
+                android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/char_ID"
-                android:layout_width="122dp"
-                android:layout_height="31dp"
-                android:layout_below="@+id/full_name"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/pick_1"
-                android:text="CharID"
-                android:textSize="20dp"
-                android:textColor="#F4F6F5"/>
+                android:id="@+id/totalPick"
+                android:layout_width="68dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:textColor="#F4F6F5"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/percent"
+                android:layout_width="38dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="112dp"
+                android:textColor="#F4F6F5"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/pickpercent"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/character_image"
+                android:text="%:"
+                android:textColor="#bb002f"
+                android:textSize="18dp" />
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="29dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="3dp"
+                android:layout_toEndOf="@+id/full_name"
+                android:layout_toLeftOf="@+id/total" />
+
+            <TextView
+                android:id="@+id/difference"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignEnd="@+id/total"
+                android:layout_alignParentBottom="true"
+                android:text="Pick Difference:"
+                android:textColor="#bb002f"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/pickDiff"
+                android:layout_width="68dp"
+                android:layout_height="29dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="1dp"
+                android:layout_toEndOf="@+id/difference"
+                android:textColor="#F4F6F5"
+                android:textSize="18dp" />
 
 
         </RelativeLayout>

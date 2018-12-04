@@ -169,22 +169,25 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
     /*_______________INNER STATIC VIEW HOLDER CLASS______________*/
     class ViewHolder extends RecyclerView.ViewHolder{
       protected TextView full_name;
-      protected final TextView character_ID;
-      protected final TextView pick_1;
       protected CardView cardView;
       private LayoutInflater popUpInflater;
       private PopupWindow popupWindow;
       private ImageView iconView;
-
+      private final TextView total_pick;
+      private final TextView pickPercent;
+      private final TextView difference;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.full_name = itemView.findViewById(R.id.full_name);
-            this.character_ID = itemView.findViewById(R.id.char_ID);
-            this.pick_1 = itemView.findViewById(R.id.pick_1);
             this.cardView = itemView.findViewById(R.id.row);
             this.popUpInflater = LayoutInflater.from(itemView.getContext());
             this.iconView = itemView.findViewById(R.id.character_image);
+            this.total_pick = itemView.findViewById(R.id.totalPick);
+            this.pickPercent = itemView.findViewById(R.id.percent);
+            this.difference = itemView.findViewById(R.id.pickDiff);
+
+
 
             cardView.setId(cardID);
 
@@ -199,8 +202,9 @@ class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
             //pushing data to display on the specified widgets
             full_name.setText(hero.getName());
-            character_ID.setText(Integer.toString(hero.getID()));
-            pick_1.setText(Integer.toString(hero.getPick_1()));
+            total_pick.setText(Integer.toString(hero.getPick_all()));
+            pickPercent.setText(Integer.toString(hero.getPickPercentage()));
+            difference.setText(Double.toString(hero.getPick_difference()));
             //Picasso.get().load(hero.getHeroImgUrl()).into(iconView);
 
            /* if(hero.getHeroIconBitmap() != null){

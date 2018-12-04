@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "916722947170",
+    "firebase_url": "https://dota2day-e4544.firebaseio.com",
+    "project_id": "dota2day-e4544",
+    "storage_bucket": "dota2day-e4544.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916722947170:android:e46c766e9425df80",
+        "android_client_info": {
+          "package_name": "com.example.haley.dota2dayproj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916722947170-s11bjcec7caa68o4u704h638pmceqvd2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.haley.dota2dayproj",
+            "certificate_hash": "2f2f3ffe891ca43d1f74828867ac2fa91b4a4882"
+          }
+        },
+        {
+          "client_id": "916722947170-amdtl2so8e2v6f8tpukif7fhgdilo9fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHhS4cXihX3wUwl8rHzaj4FFXmFp1tT8g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916722947170-amdtl2so8e2v6f8tpukif7fhgdilo9fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

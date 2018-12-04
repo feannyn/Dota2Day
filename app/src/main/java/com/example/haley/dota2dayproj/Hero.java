@@ -3,6 +3,7 @@ package com.example.haley.dota2dayproj;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class Hero implements Parcelable{
 
 
 
-
+    private static final String TAG = "Hero Class";
     private int id;
     private String name;
     private int pick_1;
@@ -66,9 +67,10 @@ public class Hero implements Parcelable{
     private double p5p;
     private double p6p;
     private double p7p;
+    private int pickPercentage;
 
 
-    public Hero(int id, String name, int pick_1, int pick_2, int pick_3, int pick_4, int pick_5, int pick_6, int pick_7, String heroIconUrl, String heroImgUrl, Bitmap heroImgBitmap, Bitmap heroIconBitmap) {
+    public Hero(int id, String name, int pick_1, int pick_2, int pick_3, int pick_4, int pick_5, int pick_6, int pick_7, String heroIconUrl, String heroImgUrl, Bitmap heroImgBitmap, Bitmap heroIconBitmap, int pickPercentage) {
         this.id = id;
         this.name = name;
         this.pick_1 = pick_1;
@@ -91,6 +93,7 @@ public class Hero implements Parcelable{
         this.heroImgUrl = heroImgUrl;
         this.heroIconBitmap = heroIconBitmap;
         this.heroImgBitmap = heroImgBitmap;
+        this.pickPercentage = pickPercentage;
     }
 
     public Hero(Parcel in){
@@ -176,7 +179,10 @@ public class Hero implements Parcelable{
             h.p6p = (h.getPick_6() / games_6_total) * 100;
             h.p7p = (h.getPick_7() / games_7_total) * 100;
 
-            h.pick_difference = -(h.p1p - h.p7p) * 100;
+            h.pick_difference = (int)(-(h.p1p - h.p7p) * 100);
+            h.pickPercentage = (int)((h.p1p + h.p2p + h.p3p + h.p4p + h.p5p + h.p6p + h.p7p) / 7);
+
+            Log.d(TAG, "GenerateDifference: PICK PERCENTAGE = "  + h.pickPercentage);
         }
 
         //System.out.println("games_1_total = " + games_1_total);
@@ -257,6 +263,10 @@ public class Hero implements Parcelable{
     public double getp5p() {return p5p;}
     public double getp6p() {return p6p;}
     public double getp7p() {return p7p;}
+
+    public int getPickPercentage() {
+        return pickPercentage;
+    }
 
     @Override
     public String toString() {
