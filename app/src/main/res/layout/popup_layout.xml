@@ -3,7 +3,7 @@
     android:layout_width="350dp"
     android:layout_height="450dp"
     android:layout_gravity="center"
-    android:background="#1B1B1B"
+    android:background="#2E2E32"
     android:orientation="vertical">
 
     <LinearLayout
